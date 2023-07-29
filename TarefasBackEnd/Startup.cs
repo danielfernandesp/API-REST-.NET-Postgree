@@ -12,7 +12,11 @@ namespace TarefasBackEnd
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+            
             services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase("BDTarefas"));
+
+            services.AddTransient<ITarefaRepository, TarefaRepository> ();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -24,14 +28,7 @@ namespace TarefasBackEnd
 
             app.UseRouting();
 
-            app.UseEndpoints( endpoints => 
-            {
-                endpoints.MapGet("/", async context =>
-                
-                {
-                    await context.Response.WriteAsync("Hello World");
-                });
-            });
+            app.UseEndpoints( endpoints => endpoints.MapControllers());
         }
     }
 }

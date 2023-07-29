@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TarefasBackEnd.Models
 {
@@ -8,6 +9,7 @@ namespace TarefasBackEnd.Models
 
         public Guid UsuarioId {get; set;}
 
+        [Required]
         public string Nome {get; set;}
 
         public bool Concluida {get; set;}

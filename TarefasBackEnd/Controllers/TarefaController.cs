@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TarefasBackEnd.Repositories;
 
 namespace TarefasBackEnd.Controllers
 {
@@ -7,7 +8,21 @@ namespace TarefasBackEnd.Controllers
 
     public class TarefaController : ControllerBase
     {
-        public IActionResult Get(){
+        [HttpGet]
+        public IActionResult Get([FromServices]ITarefaRepository repository){
+
+            var tarefas = repository.Read();
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody]TarefaController model, [FromServices]ITarefaRepository repository)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+            
+            repository.Create(model);
+
             return Ok();
         }
     }

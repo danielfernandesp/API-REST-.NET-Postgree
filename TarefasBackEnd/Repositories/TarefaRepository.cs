@@ -1,6 +1,6 @@
 using TarefasBackEnd.Models;
 using System.Linq;
-using System.Collections.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace TarefasBackEnd.Repositories
 {
@@ -27,6 +27,7 @@ namespace TarefasBackEnd.Repositories
 
         public void Create(Tarefa tarefa)
         {
+            tarefa.ID = Guid.NewGuid(); // Criando um id sempre que for criado uma tarefa
             _context.Add(tarefa);
             _context.SaveChanges();
         }
