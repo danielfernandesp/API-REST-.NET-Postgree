@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TarefasBackEnd.Models;
 using TarefasBackEnd.Repositories;
 
 namespace TarefasBackEnd.Controllers
@@ -16,7 +17,7 @@ namespace TarefasBackEnd.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody]TarefaController model, [FromServices]ITarefaRepository repository)
+        public IActionResult Create([FromBody]Tarefa model, [FromServices]ITarefaRepository repository)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -25,5 +26,25 @@ namespace TarefasBackEnd.Controllers
 
             return Ok();
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(string id, [FromBody]Tarefa model, [FromServices]ITarefaRepository repository)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            repository.Update(new Guid(id),model);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(string id,[FromServices]ITarefaRepository repository)
+        {
+            
+            repository.Delete(new Guid(id));
+            return Ok();
+        }
+
     }
 }

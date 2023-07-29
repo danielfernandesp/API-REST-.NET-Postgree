@@ -44,10 +44,11 @@ namespace TarefasBackEnd.Repositories
             return _context.Tarefas.ToList();
         }
 
-        public void Update(Tarefa tarefa)
+        public void Update(Guid id, Tarefa tarefa)
         {
-            var _tarefa = _context.Tarefas.Find(tarefa.id);
+            var _tarefa = _context.Tarefas.Find(id);
             _tarefa.Nome = tarefa.Nome;
+            _tarefa.Concluida = tarefa.Concluida;
             _context.Entry(tarefa).State = EntityState.Deleted;
             _context.SaveChanges();
         }
