@@ -16,7 +16,9 @@ namespace TarefasBackEnd
             
             services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase("BDTarefas"));
 
-            services.AddTransient<ITarefaRepository, TarefaRepository> ();
+            // Executado em cada requisição
+            services.AddTransient<ITarefaRepository, TarefaRepository>();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
